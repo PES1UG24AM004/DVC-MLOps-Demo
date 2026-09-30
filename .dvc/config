@@ -1,0 +1,4 @@
+[core]
+    remote = localremote
+['remote "localremote"']
+    url = C:\Users\Aarav\Documents\Studies\Sem5\Lab\SE\dvc_remote_storage
