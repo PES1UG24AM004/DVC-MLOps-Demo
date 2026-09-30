@@ -1,1 +1,7 @@
 /data.txt
+
+# MLflow tracking and artifacts
+ML_Flow/mlflow.db
+ML_Flow/mlruns/
+__pycache__/
+*.pyc
