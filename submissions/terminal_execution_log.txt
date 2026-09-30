@@ -1,0 +1,66 @@
+======================================================================
+PES UNIVERSITY - SOFTWARE ENGINEERING LAB (SEM 5)
+STUDENT: Aarav Yuval B G | SRN: PES1UG24AM004
+TOPIC: DATA VERSION CONTROL (DVC) AND MLFLOW EXPERIMENT TRACKING
+======================================================================
+
+>>> Git Commit History and Version Tags
+$ git log --oneline --graph --decorate -n 8
+* 6b8b777 (HEAD -> master) Add ML_Flow documentation
+* c301de8 Add MLflow tracking experiments and DVC dataset pipeline
+* 5cfb8a2 Configure local remote storage
+* ca75a92 (tag: v2.0) Update data to version 2
+* 05ef66a (tag: v1.0) Add version 1 of data
+* d2c686a Initialize DVC
+* fdb7647 Initial commit with lab materials
+
+----------------------------------------------------------------------
+
+>>> DVC Pointer File (data.txt.dvc)
+$ type data.txt.dvc
+outs:
+- md5: 75dafceb0d26a67df209575587f1334a
+  size: 11
+  hash: md5
+  path: data.txt
+
+----------------------------------------------------------------------
+
+>>> DVC-Managed Dataset Pointer (train.csv.dvc)
+$ type ML_Flow\data\train.csv.dvc
+outs:
+- md5: 21d441a28bce4417276097df955afc50
+  size: 2928
+  hash: md5
+  path: train.csv
+
+----------------------------------------------------------------------
+
+>>> Git Ignore File (.gitignore)
+$ type .gitignore
+/data.txt
+
+# MLflow tracking and artifacts
+ML_Flow/mlflow.db
+ML_Flow/mlruns/
+__pycache__/
+*.pyc
+
+----------------------------------------------------------------------
+
+>>> DVC Status
+$ dvc status
+Data and pipelines are up to date.
+
+----------------------------------------------------------------------
+
+>>> Verification of Live Model Inference
+$ python submissions/05_test_inference.py
+Experiment 'DVC_MLflow_Pipeline' not found. Run 02_mlflow_dvc_pipeline.py first.
+
+[STDERR]
+2026/09/30 12:44:01 INFO mlflow.store.db.utils: Creating initial MLflow database tables...
+2026/09/30 12:44:01 INFO mlflow.store.db.utils: Updating database tables
+
+----------------------------------------------------------------------
+
