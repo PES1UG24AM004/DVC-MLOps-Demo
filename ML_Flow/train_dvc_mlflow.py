@@ -57,6 +57,16 @@ def run_experiment(run_name, n_estimators, max_depth, data_path, dvc_version):
         mlflow.log_metric("precision", prec)
         mlflow.log_metric("recall", rec)
         
+        # Throw detailed evaluation output into MLflow as an artifact
+        from sklearn.metrics import classification_report
+        report = classification_report(y_test, y_pred)
+        report_path = f"evaluation_report_{run_name}.txt"
+        with open(report_path, "w") as f:
+            f.write(f"Model Evaluation Report: {run_name}\n")
+            f.write("=========================================\n")
+            f.write(report)
+        mlflow.log_artifact(report_path)
+        
         mlflow.sklearn.log_model(
             sk_model=model,
             name="random_forest_model",
