@@ -1,0 +1,25 @@
+schema: '2.0'
+stages:
+  prepare:
+    cmd: python generate_data.py
+    deps:
+    - path: generate_data.py
+      hash: md5
+      md5: 0dc62ea32094ea740bfca23916e471b4
+      size: 789
+    outs:
+    - path: data/train.csv
+      hash: md5
+      md5: 4227998b79e1002b4f23eec7019785c3
+      size: 197204
+  train:
+    cmd: python train_dvc_mlflow.py
+    deps:
+    - path: data/train.csv
+      hash: md5
+      md5: 4227998b79e1002b4f23eec7019785c3
+      size: 197204
+    - path: train_dvc_mlflow.py
+      hash: md5
+      md5: 31b0200d6beb851b0458c51d1508b137
+      size: 3884

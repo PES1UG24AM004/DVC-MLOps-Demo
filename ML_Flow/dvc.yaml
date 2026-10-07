@@ -1,0 +1,12 @@
+stages:
+  prepare:
+    cmd: python generate_data.py
+    deps:
+      - generate_data.py
+    outs:
+      - data/train.csv
+  train:
+    cmd: python train_dvc_mlflow.py
+    deps:
+      - data/train.csv
+      - train_dvc_mlflow.py
