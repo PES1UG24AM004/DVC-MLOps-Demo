@@ -3,10 +3,14 @@ stages:
   prepare:
     cmd: python generate_data.py
     deps:
+    - path: config.yaml
+      hash: md5
+      md5: a8a8aeb6acd50f04cb0a584079333b9c
+      size: 340
     - path: generate_data.py
       hash: md5
-      md5: 0dc62ea32094ea740bfca23916e471b4
-      size: 789
+      md5: 9b4750adfae0b0377c451b04f3529548
+      size: 1134
     outs:
     - path: data/train.csv
       hash: md5
@@ -15,11 +19,15 @@ stages:
   train:
     cmd: python train_dvc_mlflow.py
     deps:
+    - path: config.yaml
+      hash: md5
+      md5: a8a8aeb6acd50f04cb0a584079333b9c
+      size: 340
     - path: data/train.csv
       hash: md5
       md5: 4227998b79e1002b4f23eec7019785c3
       size: 197204
     - path: train_dvc_mlflow.py
       hash: md5
-      md5: 31b0200d6beb851b0458c51d1508b137
-      size: 3884
+      md5: a657e5eb90c13c05ccbcc8a619fe9a58
+      size: 3291

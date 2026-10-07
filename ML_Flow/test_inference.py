@@ -29,13 +29,14 @@ print(f"Logged Accuracy: {latest_run.data.metrics.get('accuracy'):.4f}")
 model_uri = f"runs:/{run_id}/random_forest_model"
 model = mlflow.sklearn.load_model(model_uri)
 
+import numpy as np
+
 # Test prediction
-iris = load_iris()
-sample = [iris.data[0], iris.data[60], iris.data[120]] # One sample from each class
+# Using random synthetic samples with 10 features (matching training data)
+sample = np.random.randn(3, 10)
 predictions = model.predict(sample)
-predicted_classes = [iris.target_names[p] for p in predictions]
 
 print("\n--- Live Inference Test ---")
-for i, (feat, pred_name) in enumerate(zip(sample, predicted_classes)):
-    print(f"Sample {i+1} Features: {feat} -> Predicted Class: {pred_name}")
+for i, (feat, pred_name) in enumerate(zip(sample, predictions)):
+    print(f"Sample {i+1} Features: [array of 10 features] -> Predicted Class: {pred_name}")
 print("\nInference successful! Model loaded and executed from MLflow storage.")

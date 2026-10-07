@@ -3,6 +3,7 @@ stages:
     cmd: python generate_data.py
     deps:
       - generate_data.py
+      - config.yaml
     outs:
       - data/train.csv
   train:
@@ -10,3 +11,4 @@ stages:
     deps:
       - data/train.csv
       - train_dvc_mlflow.py
+      - config.yaml
