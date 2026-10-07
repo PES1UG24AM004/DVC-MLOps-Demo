@@ -1,0 +1,40 @@
+name: MLOps Pipeline (DVC + MLflow)
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+
+jobs:
+  run-pipeline:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install dvc mlflow pandas scikit-learn pyyaml
+        
+    - name: Run DVC Pipeline (Without Remote Data)
+      working-directory: ML_Flow
+      run: |
+        # Remove the local Windows remote since GitHub Actions is on Ubuntu
+        dvc remote remove localremote || true
+        
+        # Force DVC to reproduce the pipeline from scratch
+        # This will run generate_data.py to create the dataset, then train_dvc_mlflow.py
+        dvc repro
+        
+    - name: Run Inference Tests
+      working-directory: ML_Flow
+      run: |
+        python test_inference.py
