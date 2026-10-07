@@ -27,8 +27,20 @@ jobs:
     - name: Lint with Pylint
       working-directory: ML_Flow
       run: |
-        # Run pylint on all python files. We ignore some rules for simplicity in the lab.
-        pylint --disable=C,R,W *.py || true
+        echo "🔍 Discovering Python files for linting..."
+        PYTHON_FILES=$(find . -maxdepth 1 -name "*.py")
+        echo "Found the following Python files to lint:"
+        echo "$PYTHON_FILES"
+        
+        echo ""
+        echo "🚀 Running Pylint on discovered files..."
+        for file in $PYTHON_FILES; do
+          echo "----------------------------------------"
+          echo "Linting: $file"
+          pylint --disable=C,R,W "$file" || true
+        done
+        echo "----------------------------------------"
+        echo "✅ Linting completed."
         
     - name: Run DVC Pipeline (Without Remote Data)
       working-directory: ML_Flow
